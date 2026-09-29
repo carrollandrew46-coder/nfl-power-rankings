@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+<title>NFL 2026 Advanced Power Rankings — Week 3</title>
+<style>
+:root {
+  --navy: #0b1220;
+  --navy2: #131d2e;
+  --blue: #2563eb;
+  --blue2: #60a5fa;
+  --gold: #d4a72c;
+  --silver: #94a3b8;
+  --bronze: #b77945;
+  --green: #16a34a;
+  --red: #dc2626;
+  --bg: #eef2f7;
+  --card: #ffffff;
+  --text: #172033;
+  --muted: #64748b;
+  --border: #dbe2ea;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(37,99,235,.10), transparent 28%),
+    var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(96,165,250,.18), transparent 25%),
+    linear-gradient(135deg, #080e19, #17243a 60%, #213552);
+  color: white;
+  padding: 44px 30px 38px;
+  border-bottom: 4px solid var(--blue);
+}
+
+.header-inner,
+.content {
+  max-width: 1750px;
+  margin: auto;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-size: 11px;
+  opacity: .68;
+  font-weight: 800;
+}
+
+h1 {
+  margin: 7px 0 5px;
+  font-size: clamp(30px, 4vw, 46px);
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  color: #cbd5e1;
+  font-size: 15px;
+}
+
+.content {
+  padding: 26px 22px 55px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(15,23,42,.06);
+}
+
+.card-label {
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  font-weight: 800;
+}
+
+.card-value {
+  margin-top: 7px;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.podium {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr 1fr;
+  gap: 15px;
+  align-items: end;
+  margin: 0 0 24px;
+}
+
+.podium-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(15,23,42,.08);
+}
+
+.podium-card.first {
+  padding-top: 28px;
+  border: 2px solid var(--gold);
+  transform: translateY(-7px);
+  box-shadow: 0 16px 38px rgba(15,23,42,.12);
+}
+
+.podium-card.second { border-top: 4px solid var(--silver); }
+.podium-card.third { border-top: 4px solid var(--bronze); }
+
+.podium-place {
+  position: absolute;
+  top: 10px;
+  left: 13px;
+  font-weight: 900;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.podium-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin: 4px auto 7px;
+}
+
+.podium-abbr {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.podium-name {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.podium-score {
+  font-size: 34px;
+  font-weight: 950;
+  margin-top: 12px;
+  letter-spacing: -1px;
+}
+
+.podium-record {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 13px;
+}
+
+.search {
+  flex: 1;
+  min-width: 220px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-size: 14px;
+  background: white;
+}
+
+.sort-btn {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.sort-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  overflow: auto;
+  box-shadow: 0 8px 26px rgba(15,23,42,.07);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 1500px;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--navy2);
+  color: white;
+  padding: 13px 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .65px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 13px 10px;
+  border-bottom: 1px solid #e8edf3;
+  text-align: center;
+  font-size: 12px;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+
+tbody tr:hover td { background: #f8fbff; }
+
+.rank {
+  font-size: 17px;
+  font-weight: 900;
+  width: 72px;
+}
+
+.simple-rank {
+  font-weight: 900;
+  width: 70px;
+}
+
+.shift {
+  font-weight: 950;
+  width: 60px;
+}
+
+.shift-up { color: var(--green); background: #ecfdf3; }
+.shift-down { color: var(--red); background: #fef2f2; }
+.shift-even { color: var(--muted); background: #f8fafc; }
+
+.team-cell {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  min-width: 225px;
+}
+
+.team-cell img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.team-abbr {
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.team-name {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.record {
+  font-weight: 800;
+}
+
+.composite {
+  font-size: 18px;
+  font-weight: 950;
+  background: #eef4ff;
+}
+
+.elite { color: var(--green); font-weight: 900; }
+.good { color: #15803d; font-weight: 800; }
+.average { color: #374151; font-weight: 700; }
+.below { color: #b45309; font-weight: 800; }
+.poor { color: var(--red); font-weight: 900; }
+
+.strength {
+  color: var(--green);
+  font-weight: 800;
+  text-align: left;
+  min-width: 150px;
+}
+
+.weakness {
+  color: var(--red);
+  font-weight: 800;
+  text-align: left;
+  min-width: 150px;
+}
+
+.footer {
+  margin-top: 17px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.section-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+ .history-team {
+  min-width: 190px;
+  white-space: nowrap;
+}
+
+.history-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex: 0 0 30px;
+}
+
+.history-table .team-name {
+  font-weight: 800;
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .podium { grid-template-columns: 1fr; }
+  .podium-card.first { transform: none; }
+}
+
+@media (max-width: 560px) {
+  .cards { grid-template-columns: 1fr; }
+  .content { padding-left: 12px; padding-right: 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="kicker">NFL Advanced Composite Model</div>
+    <h1>2026 Power Rankings</h1>
+    <div class="subtitle">
+      Week 3 &nbsp;•&nbsp;
+      32 teams &nbsp;•&nbsp;
+      Opponent-adjusted &nbsp;•&nbsp;
+      Recency-weighted
+    </div>
+  </div>
+</header>
+
+<main class="content">
+
+  <section class="cards">
+    <div class="card">
+      <div class="card-label">Season</div>
+      <div class="card-value">2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Completed Week</div>
+      <div class="card-value">3</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Teams Ranked</div>
+      <div class="card-value">32</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Score Scale</div>
+      <div class="card-value">50 = Avg</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Comparison</div>
+      <div class="card-value">Simple vs Advanced</div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Top of the Board</h2>
+
+  <section class="podium">
+    
+        <div class="podium-card first">
+          <div class="podium-place">1</div>
+          <img class="podium-logo"
+               src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/BUF.png"
+               alt="BUF">
+          <div class="podium-abbr">BUF</div>
+          <div class="podium-name">Buffalo Bills</div>
+          <div class="podium-score">68.71</div>
+          <div class="podium-record">3-0</div>
+        </div>
+        
+        <div class="podium-card second">
+          <div class="podium-place">2</div>
+          <img class="podium-logo"
+               src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DET.png"
+               alt="DET">
+          <div class="podium-abbr">DET</div>
+          <div class="podium-name">Detroit Lions</div>
+          <div class="podium-score">68.33</div>
+          <div class="podium-record">2-1</div>
+        </div>
+        
+        <div class="podium-card third">
+          <div class="podium-place">3</div>
+          <img class="podium-logo"
+               src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/SF.png"
+               alt="SF">
+          <div class="podium-abbr">SF</div>
+          <div class="podium-name">San Francisco 49ers</div>
+          <div class="podium-score">67.01</div>
+          <div class="podium-record">3-0</div>
+        </div>
+        
+  </section>
+
+  <h2 class="section-title">Simple vs Advanced</h2>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-label">How to read Rank Shift</div>
+    <div style="margin-top:7px; color:var(--muted); font-size:12px; line-height:1.55;">
+      Positive numbers mean the Advanced model ranks the team higher than the Simple model.
+      Negative numbers mean the Advanced model ranks the team lower. 0 means both models agree.
+    </div>
+  </div>
+
+  <div class="controls">
+    <input id="teamSearch"
+           class="search"
+           type="text"
+           placeholder="Search team...">
+    <button class="sort-btn" onclick="sortTable(0)">Sort Advanced Rank</button>
+    <button class="sort-btn" onclick="sortTable(1)">Sort Simple Rank</button>
+    <button class="sort-btn" onclick="sortTable(5)">Sort Composite</button>
+  </div>
+
+  <section class="table-wrap">
+    <table id="rankingsTable">
+      <thead>
+        <tr>
+          <th>Advanced Rank</th>
+          <th>Simple Rank</th>
+          <th>Shift</th>
+          <th>Team</th>
+          <th>Record</th>
+          <th>Composite</th>
+          <th>Off Eff.</th>
+          <th>Def Eff.</th>
+          <th>QB EPA</th>
+          <th>Success</th>
+          <th>Explosive</th>
+          <th>Red Zone</th>
+          <th>3rd Down</th>
+          <th>4th Down</th>
+          <th>Special Teams</th>
+          <th>SOS</th>
+          <th>Turnovers</th>
+          <th>Results</th>
+          <th>Strength</th>
+          <th>Weakness</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td class="rank">1</td>
+          <td class="simple-rank">6</td>
+          <td class="shift shift-up">
+            +5
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/BUF.png"
+                 alt="BUF">
+            <div>
+              <div class="team-abbr">BUF</div>
+              <div class="team-name">
+                Buffalo Bills
+              </div>
+            </div>
+          </td>
+          <td class="record">3-0</td>
+          <td class="composite">
+            68.71
+          </td>
+          <td class="poor">1.4</td><td class="poor">0.5</td><td class="poor">1.5</td><td class="poor">0.2</td><td class="poor">1.3</td><td class="poor">0.3</td><td class="poor">0.9</td><td class="poor">-0.7</td><td class="poor">0.1</td><td class="poor">-0.8</td><td class="poor">-0.5</td><td class="poor">1.3</td>
+          <td class="strength">
+            QB EPA
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">2</td>
+          <td class="simple-rank">9</td>
+          <td class="shift shift-up">
+            +7
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DET.png"
+                 alt="DET">
+            <div>
+              <div class="team-abbr">DET</div>
+              <div class="team-name">
+                Detroit Lions
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            68.33
+          </td>
+          <td class="poor">0.7</td><td class="poor">1.3</td><td class="poor">1.0</td><td class="poor">0.0</td><td class="poor">0.7</td><td class="poor">1.1</td><td class="poor">-0.9</td><td class="poor">0.3</td><td class="poor">0.5</td><td class="poor">0.7</td><td class="poor">0.5</td><td class="poor">0.3</td>
+          <td class="strength">
+            Defensive Efficiency
+          </td>
+          <td class="weakness">
+            Third Down
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">3</td>
+          <td class="simple-rank">1</td>
+          <td class="shift shift-down">
+            -2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/SF.png"
+                 alt="SF">
+            <div>
+              <div class="team-abbr">SF</div>
+              <div class="team-name">
+                San Francisco 49ers
+              </div>
+            </div>
+          </td>
+          <td class="record">3-0</td>
+          <td class="composite">
+            67.01
+          </td>
+          <td class="poor">1.3</td><td class="poor">-0.6</td><td class="poor">2.7</td><td class="poor">1.2</td><td class="poor">-0.1</td><td class="poor">0.3</td><td class="poor">1.0</td><td class="poor">-0.3</td><td class="poor">-0.4</td><td class="poor">-0.8</td><td class="poor">0.2</td><td class="poor">1.7</td>
+          <td class="strength">
+            QB EPA
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">4</td>
+          <td class="simple-rank">5</td>
+          <td class="shift shift-up">
+            +1
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CHI.png"
+                 alt="CHI">
+            <div>
+              <div class="team-abbr">CHI</div>
+              <div class="team-name">
+                Chicago Bears
+              </div>
+            </div>
+          </td>
+          <td class="record">1-1</td>
+          <td class="composite">
+            62.79
+          </td>
+          <td class="poor">0.8</td><td class="poor">0.4</td><td class="poor">1.1</td><td class="poor">-0.1</td><td class="poor">0.8</td><td class="poor">-0.0</td><td class="poor">1.2</td><td class="poor">0.1</td><td class="poor">0.2</td><td class="poor">1.4</td><td class="poor">-0.5</td><td class="poor">0.4</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Turnovers
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">5</td>
+          <td class="simple-rank">15</td>
+          <td class="shift shift-up">
+            +10
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/BAL.png"
+                 alt="BAL">
+            <div>
+              <div class="team-abbr">BAL</div>
+              <div class="team-name">
+                Baltimore Ravens
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            62.69
+          </td>
+          <td class="poor">1.0</td><td class="poor">0.1</td><td class="poor">1.3</td><td class="poor">1.1</td><td class="poor">0.8</td><td class="poor">0.4</td><td class="poor">-0.3</td><td class="poor">-1.1</td><td class="poor">-0.4</td><td class="poor">-0.5</td><td class="poor">0.4</td><td class="poor">0.6</td>
+          <td class="strength">
+            QB EPA
+          </td>
+          <td class="weakness">
+            Fourth Down
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">6</td>
+          <td class="simple-rank">4</td>
+          <td class="shift shift-down">
+            -2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DAL.png"
+                 alt="DAL">
+            <div>
+              <div class="team-abbr">DAL</div>
+              <div class="team-name">
+                Dallas Cowboys
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            62.58
+          </td>
+          <td class="poor">0.7</td><td class="poor">0.8</td><td class="poor">1.2</td><td class="poor">-0.6</td><td class="poor">-0.0</td><td class="poor">0.8</td><td class="poor">-0.2</td><td class="poor">1.0</td><td class="poor">-0.0</td><td class="poor">-0.0</td><td class="poor">0.7</td><td class="poor">-0.3</td>
+          <td class="strength">
+            QB EPA
+          </td>
+          <td class="weakness">
+            Success Rate
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">7</td>
+          <td class="simple-rank">8</td>
+          <td class="shift shift-up">
+            +1
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/KC.png"
+                 alt="KC">
+            <div>
+              <div class="team-abbr">KC</div>
+              <div class="team-name">
+                Kansas City Chiefs
+              </div>
+            </div>
+          </td>
+          <td class="record">3-0</td>
+          <td class="composite">
+            58.19
+          </td>
+          <td class="poor">0.6</td><td class="poor">-0.7</td><td class="poor">0.9</td><td class="poor">0.9</td><td class="poor">0.2</td><td class="poor">0.3</td><td class="poor">0.4</td><td class="poor">0.5</td><td class="poor">-0.1</td><td class="poor">-0.4</td><td class="poor">0.3</td><td class="poor">1.5</td>
+          <td class="strength">
+            Game Results
+          </td>
+          <td class="weakness">
+            Defensive Efficiency
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">8</td>
+          <td class="simple-rank">2</td>
+          <td class="shift shift-down">
+            -6
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/JAX.png"
+                 alt="JAX">
+            <div>
+              <div class="team-abbr">JAX</div>
+              <div class="team-name">
+                Jacksonville Jaguars
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            57.41
+          </td>
+          <td class="poor">0.5</td><td class="poor">-0.3</td><td class="poor">0.9</td><td class="poor">0.3</td><td class="poor">0.5</td><td class="poor">-0.3</td><td class="poor">1.4</td><td class="poor">-0.1</td><td class="poor">-0.2</td><td class="poor">0.5</td><td class="poor">0.9</td><td class="poor">0.9</td>
+          <td class="strength">
+            Third Down
+          </td>
+          <td class="weakness">
+            Defensive Efficiency
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">9</td>
+          <td class="simple-rank">18</td>
+          <td class="shift shift-up">
+            +9
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/IND.png"
+                 alt="IND">
+            <div>
+              <div class="team-abbr">IND</div>
+              <div class="team-name">
+                Indianapolis Colts
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            55.70
+          </td>
+          <td class="poor">-0.2</td><td class="poor">0.9</td><td class="poor">-0.6</td><td class="poor">-0.2</td><td class="poor">0.5</td><td class="poor">0.6</td><td class="poor">0.3</td><td class="poor">0.8</td><td class="poor">0.9</td><td class="poor">0.2</td><td class="poor">-0.4</td><td class="poor">-0.7</td>
+          <td class="strength">
+            Special Teams
+          </td>
+          <td class="weakness">
+            Game Results
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">10</td>
+          <td class="simple-rank">13</td>
+          <td class="shift shift-up">
+            +3
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/WAS.png"
+                 alt="WAS">
+            <div>
+              <div class="team-abbr">WAS</div>
+              <div class="team-name">
+                Washington Commanders
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            54.51
+          </td>
+          <td class="poor">-0.5</td><td class="poor">0.8</td><td class="poor">0.4</td><td class="poor">-0.2</td><td class="poor">-0.8</td><td class="poor">0.8</td><td class="poor">-0.5</td><td class="poor">1.6</td><td class="poor">0.0</td><td class="poor">0.8</td><td class="poor">0.7</td><td class="poor">-0.6</td>
+          <td class="strength">
+            Fourth Down
+          </td>
+          <td class="weakness">
+            Explosiveness
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">11</td>
+          <td class="simple-rank">22</td>
+          <td class="shift shift-up">
+            +11
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/ARI.png"
+                 alt="ARI">
+            <div>
+              <div class="team-abbr">ARI</div>
+              <div class="team-name">
+                Arizona Cardinals
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            54.35
+          </td>
+          <td class="poor">-0.5</td><td class="poor">0.8</td><td class="poor">0.3</td><td class="poor">-0.1</td><td class="poor">-0.5</td><td class="poor">0.4</td><td class="poor">-0.1</td><td class="poor">1.3</td><td class="poor">0.7</td><td class="poor">0.3</td><td class="poor">0.2</td><td class="poor">-0.5</td>
+          <td class="strength">
+            Fourth Down
+          </td>
+          <td class="weakness">
+            Offensive Efficiency
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">12</td>
+          <td class="simple-rank">14</td>
+          <td class="shift shift-up">
+            +2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CAR.png"
+                 alt="CAR">
+            <div>
+              <div class="team-abbr">CAR</div>
+              <div class="team-name">
+                Carolina Panthers
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            54.30
+          </td>
+          <td class="poor">0.2</td><td class="poor">0.5</td><td class="poor">0.3</td><td class="poor">-0.2</td><td class="poor">0.2</td><td class="poor">0.4</td><td class="poor">-0.6</td><td class="poor">-0.6</td><td class="poor">0.4</td><td class="poor">-0.7</td><td class="poor">0.3</td><td class="poor">-0.4</td>
+          <td class="strength">
+            Defensive Efficiency
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">13</td>
+          <td class="simple-rank">3</td>
+          <td class="shift shift-down">
+            -10
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NO.png"
+                 alt="NO">
+            <div>
+              <div class="team-abbr">NO</div>
+              <div class="team-name">
+                New Orleans Saints
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            53.78
+          </td>
+          <td class="poor">0.3</td><td class="poor">0.3</td><td class="poor">-0.0</td><td class="poor">-0.4</td><td class="poor">-0.0</td><td class="poor">0.7</td><td class="poor">0.4</td><td class="poor">0.9</td><td class="poor">-0.6</td><td class="poor">1.4</td><td class="poor">-0.5</td><td class="poor">-0.3</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Special Teams
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">14</td>
+          <td class="simple-rank">10</td>
+          <td class="shift shift-down">
+            -4
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/PHI.png"
+                 alt="PHI">
+            <div>
+              <div class="team-abbr">PHI</div>
+              <div class="team-name">
+                Philadelphia Eagles
+              </div>
+            </div>
+          </td>
+          <td class="record">2-0</td>
+          <td class="composite">
+            52.63
+          </td>
+          <td class="poor">0.4</td><td class="poor">-0.4</td><td class="poor">0.2</td><td class="poor">-0.0</td><td class="poor">-0.4</td><td class="poor">0.6</td><td class="poor">0.7</td><td class="poor">-0.6</td><td class="poor">0.2</td><td class="poor">-1.2</td><td class="poor">-0.2</td><td class="poor">1.1</td>
+          <td class="strength">
+            Game Results
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">15</td>
+          <td class="simple-rank">12</td>
+          <td class="shift shift-down">
+            -3
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/LV.png"
+                 alt="LV">
+            <div>
+              <div class="team-abbr">LV</div>
+              <div class="team-name">
+                Las Vegas Raiders
+              </div>
+            </div>
+          </td>
+          <td class="record">3-0</td>
+          <td class="composite">
+            52.02
+          </td>
+          <td class="poor">-0.1</td><td class="poor">-0.2</td><td class="poor">-0.1</td><td class="poor">-0.6</td><td class="poor">-0.3</td><td class="poor">0.4</td><td class="poor">-0.4</td><td class="poor">0.9</td><td class="poor">1.0</td><td class="poor">-1.6</td><td class="poor">0.8</td><td class="poor">1.5</td>
+          <td class="strength">
+            Game Results
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">16</td>
+          <td class="simple-rank">16</td>
+          <td class="shift shift-even">
+            0
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CIN.png"
+                 alt="CIN">
+            <div>
+              <div class="team-abbr">CIN</div>
+              <div class="team-name">
+                Cincinnati Bengals
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            48.99
+          </td>
+          <td class="poor">0.1</td><td class="poor">0.0</td><td class="poor">0.0</td><td class="poor">-0.1</td><td class="poor">0.6</td><td class="poor">-1.2</td><td class="poor">-0.0</td><td class="poor">1.0</td><td class="poor">-0.0</td><td class="poor">-1.4</td><td class="poor">0.2</td><td class="poor">0.6</td>
+          <td class="strength">
+            Fourth Down
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">17</td>
+          <td class="simple-rank">19</td>
+          <td class="shift shift-up">
+            +2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NYJ.png"
+                 alt="NYJ">
+            <div>
+              <div class="team-abbr">NYJ</div>
+              <div class="team-name">
+                New York Jets
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            48.99
+          </td>
+          <td class="poor">-0.0</td><td class="poor">-0.0</td><td class="poor">0.2</td><td class="poor">-0.2</td><td class="poor">-0.3</td><td class="poor">0.7</td><td class="poor">0.2</td><td class="poor">0.2</td><td class="poor">-0.9</td><td class="poor">-1.6</td><td class="poor">0.2</td><td class="poor">-0.3</td>
+          <td class="strength">
+            Red Zone
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">18</td>
+          <td class="simple-rank">25</td>
+          <td class="shift shift-up">
+            +7
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DEN.png"
+                 alt="DEN">
+            <div>
+              <div class="team-abbr">DEN</div>
+              <div class="team-name">
+                Denver Broncos
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            47.71
+          </td>
+          <td class="poor">-0.5</td><td class="poor">0.1</td><td class="poor">-0.5</td><td class="poor">0.2</td><td class="poor">-0.1</td><td class="poor">-0.1</td><td class="poor">-0.6</td><td class="poor">-0.9</td><td class="poor">0.6</td><td class="poor">1.8</td><td class="poor">0.2</td><td class="poor">0.2</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Fourth Down
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">19</td>
+          <td class="simple-rank">31</td>
+          <td class="shift shift-up">
+            +12
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CLE.png"
+                 alt="CLE">
+            <div>
+              <div class="team-abbr">CLE</div>
+              <div class="team-name">
+                Cleveland Browns
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            46.67
+          </td>
+          <td class="poor">-0.2</td><td class="poor">0.0</td><td class="poor">-0.2</td><td class="poor">-0.4</td><td class="poor">0.1</td><td class="poor">-0.9</td><td class="poor">-0.5</td><td class="poor">0.4</td><td class="poor">0.9</td><td class="poor">-0.3</td><td class="poor">0.0</td><td class="poor">0.1</td>
+          <td class="strength">
+            Special Teams
+          </td>
+          <td class="weakness">
+            Red Zone
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">20</td>
+          <td class="simple-rank">17</td>
+          <td class="shift shift-down">
+            -3
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/SEA.png"
+                 alt="SEA">
+            <div>
+              <div class="team-abbr">SEA</div>
+              <div class="team-name">
+                Seattle Seahawks
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            45.98
+          </td>
+          <td class="poor">0.0</td><td class="poor">-1.5</td><td class="poor">0.6</td><td class="poor">1.0</td><td class="poor">-0.6</td><td class="poor">0.1</td><td class="poor">0.4</td><td class="poor">-1.1</td><td class="poor">0.1</td><td class="poor">-0.8</td><td class="poor">-0.2</td><td class="poor">0.7</td>
+          <td class="strength">
+            Success Rate
+          </td>
+          <td class="weakness">
+            Defensive Efficiency
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">21</td>
+          <td class="simple-rank">7</td>
+          <td class="shift shift-down">
+            -14
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/LA.png"
+                 alt="LA">
+            <div>
+              <div class="team-abbr">LA</div>
+              <div class="team-name">
+                Los Angeles Rams
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            45.13
+          </td>
+          <td class="poor">0.1</td><td class="poor">-1.0</td><td class="poor">0.2</td><td class="poor">0.4</td><td class="poor">-0.0</td><td class="poor">-0.4</td><td class="poor">0.0</td><td class="poor">-0.1</td><td class="poor">-0.7</td><td class="poor">1.4</td><td class="poor">-0.3</td><td class="poor">-0.3</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Defensive Efficiency
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">22</td>
+          <td class="simple-rank">26</td>
+          <td class="shift shift-up">
+            +4
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NYG.png"
+                 alt="NYG">
+            <div>
+              <div class="team-abbr">NYG</div>
+              <div class="team-name">
+                New York Giants
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            43.90
+          </td>
+          <td class="poor">-0.5</td><td class="poor">-0.3</td><td class="poor">-0.4</td><td class="poor">-0.7</td><td class="poor">0.1</td><td class="poor">-0.1</td><td class="poor">-0.8</td><td class="poor">0.2</td><td class="poor">0.6</td><td class="poor">-1.2</td><td class="poor">0.5</td><td class="poor">0.1</td>
+          <td class="strength">
+            Special Teams
+          </td>
+          <td class="weakness">
+            Strength of Schedule
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">23</td>
+          <td class="simple-rank">24</td>
+          <td class="shift shift-up">
+            +1
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/HOU.png"
+                 alt="HOU">
+            <div>
+              <div class="team-abbr">HOU</div>
+              <div class="team-name">
+                Houston Texans
+              </div>
+            </div>
+          </td>
+          <td class="record">0-3</td>
+          <td class="composite">
+            43.74
+          </td>
+          <td class="poor">-0.5</td><td class="poor">0.3</td><td class="poor">-0.7</td><td class="poor">0.3</td><td class="poor">0.3</td><td class="poor">-0.7</td><td class="poor">-0.1</td><td class="poor">-0.7</td><td class="poor">0.1</td><td class="poor">0.0</td><td class="poor">-0.0</td><td class="poor">-1.4</td>
+          <td class="strength">
+            Success Rate
+          </td>
+          <td class="weakness">
+            Game Results
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">24</td>
+          <td class="simple-rank">32</td>
+          <td class="shift shift-up">
+            +8
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/GB.png"
+                 alt="GB">
+            <div>
+              <div class="team-abbr">GB</div>
+              <div class="team-name">
+                Green Bay Packers
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            43.23
+          </td>
+          <td class="poor">-0.4</td><td class="poor">0.5</td><td class="poor">-1.0</td><td class="poor">-0.9</td><td class="poor">-0.2</td><td class="poor">0.1</td><td class="poor">-1.4</td><td class="poor">0.1</td><td class="poor">0.6</td><td class="poor">-0.2</td><td class="poor">-0.5</td><td class="poor">-0.9</td>
+          <td class="strength">
+            Special Teams
+          </td>
+          <td class="weakness">
+            Third Down
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">25</td>
+          <td class="simple-rank">27</td>
+          <td class="shift shift-up">
+            +2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/MIA.png"
+                 alt="MIA">
+            <div>
+              <div class="team-abbr">MIA</div>
+              <div class="team-name">
+                Miami Dolphins
+              </div>
+            </div>
+          </td>
+          <td class="record">0-3</td>
+          <td class="composite">
+            42.53
+          </td>
+          <td class="poor">-0.3</td><td class="poor">0.7</td><td class="poor">-0.5</td><td class="poor">-1.7</td><td class="poor">-0.0</td><td class="poor">0.0</td><td class="poor">-0.1</td><td class="poor">-0.5</td><td class="poor">-1.0</td><td class="poor">2.3</td><td class="poor">-0.3</td><td class="poor">-1.7</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Success Rate
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">26</td>
+          <td class="simple-rank">11</td>
+          <td class="shift shift-down">
+            -15
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/MIN.png"
+                 alt="MIN">
+            <div>
+              <div class="team-abbr">MIN</div>
+              <div class="team-name">
+                Minnesota Vikings
+              </div>
+            </div>
+          </td>
+          <td class="record">3-0</td>
+          <td class="composite">
+            42.25
+          </td>
+          <td class="poor">-0.4</td><td class="poor">-0.8</td><td class="poor">-1.0</td><td class="poor">0.0</td><td class="poor">-0.6</td><td class="poor">-1.1</td><td class="poor">0.4</td><td class="poor">1.4</td><td class="poor">0.7</td><td class="poor">0.0</td><td class="poor">0.6</td><td class="poor">1.5</td>
+          <td class="strength">
+            Game Results
+          </td>
+          <td class="weakness">
+            Red Zone
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">27</td>
+          <td class="simple-rank">23</td>
+          <td class="shift shift-down">
+            -4
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/LAC.png"
+                 alt="LAC">
+            <div>
+              <div class="team-abbr">LAC</div>
+              <div class="team-name">
+                Los Angeles Chargers
+              </div>
+            </div>
+          </td>
+          <td class="record">0-3</td>
+          <td class="composite">
+            39.54
+          </td>
+          <td class="poor">-0.6</td><td class="poor">0.1</td><td class="poor">-1.3</td><td class="poor">-0.0</td><td class="poor">-0.1</td><td class="poor">0.1</td><td class="poor">-0.4</td><td class="poor">-1.3</td><td class="poor">-0.6</td><td class="poor">0.6</td><td class="poor">-0.3</td><td class="poor">-1.6</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Game Results
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">28</td>
+          <td class="simple-rank">20</td>
+          <td class="shift shift-down">
+            -8
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/ATL.png"
+                 alt="ATL">
+            <div>
+              <div class="team-abbr">ATL</div>
+              <div class="team-name">
+                Atlanta Falcons
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            37.45
+          </td>
+          <td class="poor">-0.4</td><td class="poor">-0.7</td><td class="poor">-2.0</td><td class="poor">0.8</td><td class="poor">-0.5</td><td class="poor">0.5</td><td class="poor">-0.2</td><td class="poor">-0.1</td><td class="poor">-0.8</td><td class="poor">-1.1</td><td class="poor">-1.1</td><td class="poor">-0.5</td>
+          <td class="strength">
+            Success Rate
+          </td>
+          <td class="weakness">
+            QB EPA
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">29</td>
+          <td class="simple-rank">28</td>
+          <td class="shift shift-down">
+            -1
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/TB.png"
+                 alt="TB">
+            <div>
+              <div class="team-abbr">TB</div>
+              <div class="team-name">
+                Tampa Bay Buccaneers
+              </div>
+            </div>
+          </td>
+          <td class="record">0-3</td>
+          <td class="composite">
+            35.99
+          </td>
+          <td class="poor">-0.2</td><td class="poor">-0.5</td><td class="poor">-1.5</td><td class="poor">0.7</td><td class="poor">-0.8</td><td class="poor">-1.1</td><td class="poor">-0.1</td><td class="poor">-0.7</td><td class="poor">-0.2</td><td class="poor">0.6</td><td class="poor">-0.9</td><td class="poor">-1.3</td>
+          <td class="strength">
+            Success Rate
+          </td>
+          <td class="weakness">
+            QB EPA
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">30</td>
+          <td class="simple-rank">21</td>
+          <td class="shift shift-down">
+            -9
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/TEN.png"
+                 alt="TEN">
+            <div>
+              <div class="team-abbr">TEN</div>
+              <div class="team-name">
+                Tennessee Titans
+              </div>
+            </div>
+          </td>
+          <td class="record">0-3</td>
+          <td class="composite">
+            35.11
+          </td>
+          <td class="poor">-1.1</td><td class="poor">-0.2</td><td class="poor">-0.8</td><td class="poor">-0.2</td><td class="poor">-0.4</td><td class="poor">-0.2</td><td class="poor">-0.1</td><td class="poor">-0.7</td><td class="poor">-0.6</td><td class="poor">-0.2</td><td class="poor">-0.6</td><td class="poor">-1.4</td>
+          <td class="strength">
+            Third Down
+          </td>
+          <td class="weakness">
+            Game Results
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">31</td>
+          <td class="simple-rank">29</td>
+          <td class="shift shift-down">
+            -2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/PIT.png"
+                 alt="PIT">
+            <div>
+              <div class="team-abbr">PIT</div>
+              <div class="team-name">
+                Pittsburgh Steelers
+              </div>
+            </div>
+          </td>
+          <td class="record">2-1</td>
+          <td class="composite">
+            34.35
+          </td>
+          <td class="poor">-0.9</td><td class="poor">-0.2</td><td class="poor">-1.3</td><td class="poor">-0.3</td><td class="poor">0.1</td><td class="poor">-1.4</td><td class="poor">-0.1</td><td class="poor">-0.9</td><td class="poor">-0.6</td><td class="poor">-0.2</td><td class="poor">0.4</td><td class="poor">0.1</td>
+          <td class="strength">
+            Turnovers
+          </td>
+          <td class="weakness">
+            Red Zone
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="rank">32</td>
+          <td class="simple-rank">30</td>
+          <td class="shift shift-down">
+            -2
+          </td>
+          <td class="team-cell">
+            <img src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NE.png"
+                 alt="NE">
+            <div>
+              <div class="team-abbr">NE</div>
+              <div class="team-name">
+                New England Patriots
+              </div>
+            </div>
+          </td>
+          <td class="record">1-2</td>
+          <td class="composite">
+            33.31
+          </td>
+          <td class="poor">-0.8</td><td class="poor">-0.8</td><td class="poor">-0.9</td><td class="poor">-0.1</td><td class="poor">-0.7</td><td class="poor">-1.1</td><td class="poor">0.1</td><td class="poor">-0.3</td><td class="poor">-0.3</td><td class="poor">1.0</td><td class="poor">-1.1</td><td class="poor">-0.4</td>
+          <td class="strength">
+            Strength of Schedule
+          </td>
+          <td class="weakness">
+            Red Zone
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </section>
+
+  <h2 class="section-title">Advanced Ranking History</h2>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-label">Week-to-week movement</div>
+    <div style="margin-top:7px; color:var(--muted); font-size:12px; line-height:1.55;">
+      This table preserves the Advanced model's ranking after each completed week.
+      Positive Change means the team moved up from the previous completed week.
+      Team logos are included for quick visual tracking.
+    </div>
+  </div>
+  <section class="table-wrap" style="margin-bottom:22px;">
+    <table class="history-table">
+      <thead><tr><th>Team</th><th>Team Name</th><th>Week 3</th><th>Change</th></tr></thead>
+      <tbody><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/BUF.png" alt="BUF"><div><div class="team-abbr">BUF</div><div class="team-name">Buffalo Bills</div></div></td><td class="rank">1</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DET.png" alt="DET"><div><div class="team-abbr">DET</div><div class="team-name">Detroit Lions</div></div></td><td class="rank">2</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/SF.png" alt="SF"><div><div class="team-abbr">SF</div><div class="team-name">San Francisco 49ers</div></div></td><td class="rank">3</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CHI.png" alt="CHI"><div><div class="team-abbr">CHI</div><div class="team-name">Chicago Bears</div></div></td><td class="rank">4</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/BAL.png" alt="BAL"><div><div class="team-abbr">BAL</div><div class="team-name">Baltimore Ravens</div></div></td><td class="rank">5</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DAL.png" alt="DAL"><div><div class="team-abbr">DAL</div><div class="team-name">Dallas Cowboys</div></div></td><td class="rank">6</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/KC.png" alt="KC"><div><div class="team-abbr">KC</div><div class="team-name">Kansas City Chiefs</div></div></td><td class="rank">7</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/JAX.png" alt="JAX"><div><div class="team-abbr">JAX</div><div class="team-name">Jacksonville Jaguars</div></div></td><td class="rank">8</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/IND.png" alt="IND"><div><div class="team-abbr">IND</div><div class="team-name">Indianapolis Colts</div></div></td><td class="rank">9</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/WAS.png" alt="WAS"><div><div class="team-abbr">WAS</div><div class="team-name">Washington Commanders</div></div></td><td class="rank">10</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/ARI.png" alt="ARI"><div><div class="team-abbr">ARI</div><div class="team-name">Arizona Cardinals</div></div></td><td class="rank">11</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CAR.png" alt="CAR"><div><div class="team-abbr">CAR</div><div class="team-name">Carolina Panthers</div></div></td><td class="rank">12</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NO.png" alt="NO"><div><div class="team-abbr">NO</div><div class="team-name">New Orleans Saints</div></div></td><td class="rank">13</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/PHI.png" alt="PHI"><div><div class="team-abbr">PHI</div><div class="team-name">Philadelphia Eagles</div></div></td><td class="rank">14</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/LV.png" alt="LV"><div><div class="team-abbr">LV</div><div class="team-name">Las Vegas Raiders</div></div></td><td class="rank">15</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CIN.png" alt="CIN"><div><div class="team-abbr">CIN</div><div class="team-name">Cincinnati Bengals</div></div></td><td class="rank">16</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NYJ.png" alt="NYJ"><div><div class="team-abbr">NYJ</div><div class="team-name">New York Jets</div></div></td><td class="rank">17</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/DEN.png" alt="DEN"><div><div class="team-abbr">DEN</div><div class="team-name">Denver Broncos</div></div></td><td class="rank">18</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/CLE.png" alt="CLE"><div><div class="team-abbr">CLE</div><div class="team-name">Cleveland Browns</div></div></td><td class="rank">19</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/SEA.png" alt="SEA"><div><div class="team-abbr">SEA</div><div class="team-name">Seattle Seahawks</div></div></td><td class="rank">20</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/LA.png" alt="LA"><div><div class="team-abbr">LA</div><div class="team-name">Los Angeles Rams</div></div></td><td class="rank">21</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NYG.png" alt="NYG"><div><div class="team-abbr">NYG</div><div class="team-name">New York Giants</div></div></td><td class="rank">22</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/HOU.png" alt="HOU"><div><div class="team-abbr">HOU</div><div class="team-name">Houston Texans</div></div></td><td class="rank">23</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/GB.png" alt="GB"><div><div class="team-abbr">GB</div><div class="team-name">Green Bay Packers</div></div></td><td class="rank">24</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/MIA.png" alt="MIA"><div><div class="team-abbr">MIA</div><div class="team-name">Miami Dolphins</div></div></td><td class="rank">25</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/MIN.png" alt="MIN"><div><div class="team-abbr">MIN</div><div class="team-name">Minnesota Vikings</div></div></td><td class="rank">26</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/LAC.png" alt="LAC"><div><div class="team-abbr">LAC</div><div class="team-name">Los Angeles Chargers</div></div></td><td class="rank">27</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/ATL.png" alt="ATL"><div><div class="team-abbr">ATL</div><div class="team-name">Atlanta Falcons</div></div></td><td class="rank">28</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/TB.png" alt="TB"><div><div class="team-abbr">TB</div><div class="team-name">Tampa Bay Buccaneers</div></div></td><td class="rank">29</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/TEN.png" alt="TEN"><div><div class="team-abbr">TEN</div><div class="team-name">Tennessee Titans</div></div></td><td class="rank">30</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/PIT.png" alt="PIT"><div><div class="team-abbr">PIT</div><div class="team-name">Pittsburgh Steelers</div></div></td><td class="rank">31</td><td class="shift shift-even">0</td></tr><tr><td class="team-cell history-team"><img class="history-logo" src="https://raw.githubusercontent.com/shoenot/NFL-Team-Logos-Transparent-Squared/main/logos/NE.png" alt="NE"><div><div class="team-abbr">NE</div><div class="team-name">New England Patriots</div></div></td><td class="rank">32</td><td class="shift shift-even">0</td></tr></tbody>
+    </table>
+  </section>
+
+  <div class="footer">
+    <strong>Model:</strong> 12-category, 100% weighted Advanced Composite.
+    Opponent adjustment, recency weighting, sample-size stabilization,
+    home/road correction, standardized normalization, and final
+    CompositeScore are applied before ranking.
+    <br>
+    <strong>Scale:</strong> 50 represents league average; higher scores
+    indicate stronger composite performance within this model.
+    <br>
+    <strong>Simple vs Advanced:</strong> Rank Shift = Simple Rank minus Advanced Rank;
+    positive values mean the Advanced model moved the team higher.
+  </div>
+
+</main>
+
+<script>
+const search = document.getElementById("teamSearch");
+const table = document.getElementById("rankingsTable");
+const tbody = table.querySelector("tbody");
+
+search.addEventListener("input", function() {
+  const term = this.value.toLowerCase();
+  Array.from(tbody.rows).forEach(row => {
+    row.style.display =
+      row.innerText.toLowerCase().includes(term)
+        ? ""
+        : "none";
+  });
+});
+
+let sortDirection = {};
+
+function sortTable(column) {
+  sortDirection[column] = !sortDirection[column];
+  const direction = sortDirection[column] ? 1 : -1;
+
+  const rows = Array.from(tbody.rows);
+
+  rows.sort((a, b) => {
+    const av = a.cells[column].innerText.trim();
+    const bv = b.cells[column].innerText.trim();
+
+    const an = parseFloat(av);
+    const bn = parseFloat(bv);
+
+    if (!Number.isNaN(an) && !Number.isNaN(bn)) {
+      return (an - bn) * direction;
+    }
+
+    return av.localeCompare(bv) * direction;
+  });
+
+  rows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+</body>
+</html>
